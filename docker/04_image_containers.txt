@@ -1,0 +1,48 @@
+About images and containers
+-----------------------------
+Images ~ stopped containers
+Containers ~ Running images
+
+Or images are the templates and containers are its instance.
+
+>docker pull alpine
+it will get the image alpine from hub.
+
+>docker pull ubuntu
+it will give latest ubuntu image
+
+>docker pull ubuntu:14.04
+ubuntu 14.04
+
+>docker rmi ubuntu:14.04
+remove image by tag name. 
+
+-----
+create docker id at 
+hub.docker.com
+akhilesh4u3/QKak@110
+
+---------
+>docker run -d --name web -p 80:8080 nigelpolon/pluralsight-docker-ci
+
+## -d says, run in the detached mode. not in this terminal.
+
+>docker run -it --name temp ubuntu:latest /bin/bash
+## -it means interactive. that is, run it here. it will run ubuntu bash here.
+
+so it will give me bash prompt. and this ubuntu has just one process running and that is bash.
+so if you execute command, exit. it will stop the container too. 
+so Ctrl P+Q, you will come out of the container to docker prompt .
+
+>docker stop $(docker ps -aq)
+to stop all containers which are running. 
+docker ps -aq => means list all containers quietly.
+--
+
+>docker rm  (removes stopped containers)
+
+
+----------
+Docker swarm
+version 1.12 or later is required.
+Docker swarm is truly native cluster. 

@@ -1,0 +1,19 @@
+>docker-compose up -d
+it will check docker-compose.yml file and according create the hub and nodes and node will be registered to hub.
+sample yml file looks like following:
+hub:
+    image: selenium/hub
+    ports:
+        - "4444:4444"
+firefox:
+    image: selenium/node-firefox
+    links:
+        - hub
+chrome:
+    image: selenium/node-chrome
+    links:
+        - hub
+
+so it will create a hub and two nodes for firefox and chrome each. suppose we want to scale the number of nodes containing firefox to 3.
+Following command:
+>docker-compose scale firefox=3

@@ -1,0 +1,14 @@
+C:\Users\q4465\workspace\SerenityDemo2>docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+##docker ps : list running containers
+
+C:\Users\q4465\workspace\SerenityDemo2>docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+b1febd032496        hello-world         "/hello"            6 minutes ago       Exited (0) 6 minutes ago                       distracted_hugle
+##docker ps -a : list exited containers too
+
+C:\Users\q4465\workspace\SerenityDemo2>docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+hello-world         latest              f2a91732366c        7 weeks ago         1.85kB
+## list all images

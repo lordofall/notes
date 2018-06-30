@@ -1,0 +1,63 @@
+selenium grid on docker
+-------------------------
+1) to configure hub on the docker container
+c:\Users\q4465>docker pull selenium/hub
+
+2) to run the hub
+c:\Users\q4465>docker run -d --name selenium-hub selenium/hub
+--
+C:\Users\q4465>docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS
+     NAMES
+f8f16c758cfa        selenium/hub        "/opt/bin/entry_poin…"   8 seconds ago       Up 7 seconds        4444/tcp
+     selenium-hub
+--
+to assign the port to the hub
+C:\Users\q4465>docker run -d -p 4545:4444 --name selenium-hub selenium/hub
+
+3)
+ PS C:\Users\q4465>docker logs selenium-hub
+here, instead of selenium-hub,you can also provide the container id.
+
+starting selenium hub with configuration:
+{
+  "host": null,
+  "port": 4444,
+  "role": "hub",
+  "maxSession": 5,
+  "newSessionWaitTimeout": -1,
+  "capabilityMatcher": "org.openqa.grid.internal.utils.DefaultCapabilityMatcher",
+  "throwOnCapabilityNotPresent": true,
+  "jettyMaxThreads": -1,
+  "cleanUpCycle": 5000,
+  "browserTimeout": 0,
+  "timeout": 30,
+  "debug": false
+}
+09:06:34.635 INFO - Selenium build info: version: '3.8.1', revision: '6e95a6684b'
+09:06:34.636 INFO - Launching Selenium Grid hub
+2018-01-18 09:06:35.233:INFO::main: Logging initialized @871ms to org.seleniumhq.jetty9.util.log.StdErrLog
+09:06:35.249 INFO - Will listen on 4444
+2018-01-18 09:06:35.308:INFO:osjs.Server:main: jetty-9.4.7.v20170914
+2018-01-18 09:06:35.335:INFO:osjs.session:main: DefaultSessionIdManager workerName=node0
+2018-01-18 09:06:35.335:INFO:osjs.session:main: No SessionScavenger set, using defaults
+2018-01-18 09:06:35.341:INFO:osjs.session:main: Scavenging every 600000ms
+2018-01-18 09:06:35.348:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@23f7d05d{/,null,AVAILABLE}
+2018-01-18 09:06:35.361:INFO:osjs.AbstractConnector:main: Started ServerConnector@65d6b83b{HTTP/1.1,[http/1.1]}{0.0.0.0:4444}
+2018-01-18 09:06:35.361:INFO:osjs.Server:main: Started @999ms
+09:06:35.361 INFO - Nodes should register to http://172.17.0.2:4444/grid/register/
+09:06:35.361 INFO - Selenium Grid hub is up and running
+
+4) pull nodes from docker hub
+>docker pull selenium/node-chrome
+>docker pull selenium/node-firefox
+
+thus two nodes are pulled. now register both of them to hub.
+
+5) both nodes creaed, run it.
+>docker run -d --link selenium-hub:hub selenium/node-firefox
+>docker run -d --link selenium-hub:hub selenium/node-chrome
+
+6) If you want view test execution, we need to pull 'debug' images, which allow us to see the browser executing tests.
+>docker pull selenium/node-chrome-debug
+>docker pull selenium/node-firefox-debug

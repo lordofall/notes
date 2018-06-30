@@ -1,0 +1,113 @@
+Prerequisite:
+Install Ionic
+-install node.js
+
+$npm install -g ionic cordova
+it will install ionic and cordova both.
+
+Start project
+$ionic start --list
+shows all templates
+
+$ionic start ionic-tabs-app tabs
+last parameter is template name
+
+$cd ionic-tabs-app
+
+$ionic
+shows all commands
+
+$ionic serve
+it will run the application on 8100 port,
+go to localhost:8100
+
+=>To run the application in android emulator
+you must have android sdk, then 
+$ionic platform add andriod
+$ionic build android
+$ionic emulate android
+
+=>To run the application in native device
+$ionic run android
+device is connected to my machine thru USB port
+it will install the app in the mobile device
+
+=> use ionic view
+go to apps.ionic.io, login
+you can think it as ionic cloud.
+$ionic upload
+it wil upload the app in ionic view.
+get the ionic view app in your iphone and you will 
+see your application in this app.
+
+=>
+index.html is single page.
+<ion-app> tag.
+
+ionic puts the compiled code in www folder.
+src -> www
+
+=>create new project
+$ionic start elite-schedule-app sidemenu
+$cd elite-schedule-app
+
+
+=>to generate a page
+$ionic generate page Tournaments
+The command created four files, tournaments.html, tournaments.ts,
+tournaments.scss and tournaments.module.ts
+module.ts file is used for deep linking.
+
+=>If i dont want .module.ts file
+$ionic generate page Teams --no-module
+
+so create page for Tournaments, Teams, TeamDetail, Game.
+Add TeamsPage, TeamDetailPage, TournamentsPage, GamePage in app.module.ts
+in declarations and entryComponents. (dont forget to import them)
+=>
+app.component.ts will have root page information.
+
+=> navigation from one page to another
+my-teams.html
+within <ion-content> creat a button:
+<button ion-button full (click)="goToTournaments()">Find a tournament</button>
+
+my-teams.ts
+in the constructor, have parameter for NavController for dependency injection.
+
+constructor(private nav: NavController) {}
+
+goToTournaments() {
+	this.nav.push(TournamentsPage);
+}
+
+=> form where, back button coming from
+in the html page, within <ion-header> if you write <ion-navbar> it brings the back button. which simply pops the page from the navigation stack and you go to prevous page.
+this.nav.pop(); // same as back button
+
+=> swipebackenabled="false" in app.html 
+
+=> <ion-tabs> doesnt go within <ion-content> so remove that
+<ion-header>..</ion-header>
+
+<ion-tabs>
+<ion-tab> 
+<ion-tabs>
+
+=> to create service, 
+$ionic generate service elite-api
+you can see a folder 'providers' inside 'src' folder.
+this elite-api provider should be written in app.module.ts in providers section.
+Also import httpModule in app.module.ts
+
+=> life cycle methods
+ionViewDidLoad
+ionViewWillEnter
+ionViewDidEnter
+ionViewWillLeave
+ionViewDidLeave
+ionViewWillUnload
+ionViewCanEnter
+ionViewCanLeave
+
+ionViewWillEnter will always fire, ionViewDidLoad will be called when the page will be loaded in the stack.
