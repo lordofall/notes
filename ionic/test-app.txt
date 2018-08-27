@@ -1,0 +1,27 @@
+1:
+connect your mobile device through usb.
+$ cd myapp
+$ ionic cordova run android
+
+myapp will be deployed in your android device. Done
+
+-----------------
+
+2: 
+$ionic setup
+username: akhilesh4u3
+email: akhilesh4u3@gmail.com
+password: Pass@123
+
+-------
+installing ionic pro
+$ npm i --save -E @ionic/pro
+i also got ionic-devapp on my mobile but no use.
+-------
+
+ionic pro
+$ionic link
+
+checkin your code to github
+$git remote add origin https://github.com/lordofall/mobile-app.git
+$git push -u origin master

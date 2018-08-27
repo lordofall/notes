@@ -1,0 +1,62 @@
+20,650.50 Rs
+
+
+c:\PROGRA~2\UiPath\Studio\UiRobot.exe -file C:\Users\q4465\Documents\UiPath\intro\sfd.xaml
+
+password for google cloud compute engine 35.200.209.71: 
+q3799-qk
+iprepl4E,7rGb@Z
+=====================
+https://technet.microsoft.com/library/dd315349.aspx
+--System requirements for running remote commands in powershell-
+
+        1) Windows PowerShell 2.0 or later
+	$psversiontable
+        2)  The Microsoft .NET Framework 2.0 or later
+
+        3)  Windows Remote Management 2.0
+
+--USER PERMISSIONS
+
+To establish a remote connection and run remote commands, the current user
+ must be a member of the Administrators group on the remote computer. Or,the current user must be able to provide the credentials of an 
+    administrator.
+
+
+--open 'powershell' as administrator
+-run following command so that other computers can connect to this one using powershell
+$enable-psremoting
+
+to verify if remoting is enabled or not, run following command, it will create remote connection to same machine localhost (loopback connection):
+$new-pssession
+
+=========================
+$Enter-PSSession localhost
+
+============
+
+WS-MAN is protocol, WinRM is the implementing service. 
+$helo about_remote_troubleshooting.
+
+powershell registers to WinRM.
+
+$credentials = Get-Credential
+
+$Enter-PSSession -ComputerName 35.200.209.71 -UseSSL -SessionOption (New-PSSessionOption -SkipCACheck -SkipCNCheck) -Credential $credentials
+
+Error:
+Enter-PSSession : Connecting to remote server 35.200.209.71 failed with the following error message : 
+WinRM cannot complete the operation. Verify that the specified computer name is valid, that the computer is accessible over the
+network, and that a firewall exception for the WinRM service is enabled and allows access from this computer. By default, the WinRM firewall exception for public profiles limits access to remote computers within the same local
+subnet. For more information, see the about_Remote_Troubleshooting Help topic.
+
+
+
+----------------
+$Invoke-Command -ComputerName 35.200.209.71 -ScriptBlock { [SCRIPT] } -UseSSL -SessionOption (New-PSSessionOption -SkipCACheck -SkipCNCheck) -Credential $credentials
+
+
+
+---------
+
+

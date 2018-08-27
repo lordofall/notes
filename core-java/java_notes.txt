@@ -1,0 +1,13 @@
+Number[] n = new Number[5];
+Integer[] i = new Integer[5];
+
+n = i; //array is covariant
+
+
+Number n = new Integer(5);
+
+List<Number> ln = new ArrayList<>();
+List<Integer> li = new ArrayList<>();
+
+ln = li; //geenric is not covariant
+

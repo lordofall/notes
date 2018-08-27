@@ -1,0 +1,28 @@
+By default, RDM window needs to be visible at all times for most UI actions to work. However, interactive tasks can be executed on a remote computer while remote desktop window is minimized. you need to change the registry.
+see following link:
+https://robot.uipath.com/docs/executing-tasks-in-a-minimized-rdp-window
+
+----
+to run robot from command line, in the 'services', 'UiPath Robot' must run.
+
+--arguments-
+$ UiRobot.exe --help
+all available commands
+
+$ UiRobot.exe --restart
+
+$ UiRobot.exe --enableLowLevel
+to troubleshoot crashes and errors
+
+$ UiRobot.exe --disableLowLevel
+
+$ UiRobot.exe --connect
+to connect robot to orchestrator
+
+$ UiRobot.exe -file “%HOMEPATH%\Documents\UiPath\test_debugging\Main.xaml”
+
+$ UiRobot.exe -file somexamlfile --monitor
+monitors the current window session and prevents disconnecting events sucn as locking the screen. --monitor is used only with -file command.
+
+$ UiRobot.exe -file somexamlfile --rdp
+used together with -file and --monitor commands. helps you prevent disconnections through the remote desktop protocol.

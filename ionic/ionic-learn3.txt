@@ -1,0 +1,2 @@
+$ionic info
+provides verson of ionic, cli, nodejs, npm etc.

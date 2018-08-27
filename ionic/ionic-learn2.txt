@@ -1,0 +1,5 @@
+ionic components
+<ion-card>
+	<ion-card-header>some header</ion-card-header>
+	<ion-card-content>ssdfsdf</ion-card-content>
+</ion-card>

@@ -1,0 +1,28 @@
+
+
+step 1:
+Install the Cordova and Ionic Native plugins for vibration:
+$ ionic cordova plugin add cordova-plugin-vibration
+$ npm install --save @ionic-native/vibration
+
+
+install the cordiva and ionic native plugins for geolocation:
+$ ionic cordova plugin add cordova-plugin-geolocation --variable GEOLOCATION_USAGE_DESCRIPTION="To locate you"
+$ npm install --save @ionic-native/geolocation
+
+step 2:
+create page
+$ionic generate page geolocation
+geolocation.html and ts, make necessary changes to test geolocation
+
+step 3:
+add GeoLocationPage in app.component.ts so that it is visible in menu.
+
+step 4: 
+add plugin in app module.
+import { Geolocation } from '@ionic-native/geolocation';
+provide the same in NgModule provides array.
+
+step 5: 
+import { GeolocationPage } from '../pages/geolocation/geolocation';
+provide the same in declarations and entryComponents of NgModule

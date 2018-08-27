@@ -5,6 +5,10 @@ Install Ionic
 $npm install -g ionic cordova
 it will install ionic and cordova both.
 
+currentlty ionic cli version is upgraded to 4.1.1.
+if you want to downgrade it 3.20.0, use following command
+$ npm i -g ionic@3.20.0
+
 Start project
 $ionic start --list
 shows all templates

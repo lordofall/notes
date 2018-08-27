@@ -1,0 +1,171 @@
+Javascript udemy training
+=========================
+
+Syntax Parser:
+A program that reads your code and determines what it does and if its grammar is valid.
+
+Lexical Environments:
+
+Execution Context:
+
+==>
+Name value pair:
+    var x = 10;
+
+Object is collection of name value pair.
+
+==> 
+when javascript is run, global object (window and this) are created.
+by global, we mean, not inside a function.
+
+==>
+Execution context is created in two phase, one is creation and other is execution. In creation, memory space is setup for variables and functions called hiosting.
+see following code snippet:
+
+//
+b();
+console.log(a);
+var a = 'hello world';
+function b() {
+    console.log("called b");
+}
+//
+it gives output:
+called b
+undefined.
+
+Explanation: memeory space for variable a and function b is setup in creation phase. while executing, console.log(a), variable a is not yet assigned the value 'hello world'.
+
+=>
+invocation of a function: we do that using parenthesis ().
+
+Every time you invoke a function, a new exection context is created and put over global execution context. Once the function completes its task, the execution context is popped of the stack.
+
+=>
+scope chain
+//
+function b() {
+    console.log(myVar);
+}
+
+function a() {
+    var myVar = 2;
+    b();
+}
+
+var myVar = 1;
+a();
+//
+what will output of line 48 ? 1
+for b() and a(), outer environment is global.
+
+Lets change the code:
+//
+
+
+function a() {
+    function b() {
+        console.log(myVar);
+    }
+    var myVar = 2;
+    b();
+}
+
+var myVar = 1;
+a();
+
+//
+function b() now sits inside a() so its outer environment is now a() not global. so output willl be 2.
+
+=>
+difference between let and var.
+let x = 10;
+var x = 10;
+
+=>
+document.addEventListener("click", clickHandlerMethod);
+
+=> javascript supports dynamic typing. i.e you dont tell javascript what kind of data the variable is going to use, instead javascript figures out the datatype while running the code. folllowing code is perfectly ok.
+
+var x = true;
+x = 'hello';
+x = 1;
+
+=> primitive type
+type of data that represents single value. not the object.
+6 types of primitive data type is supported in javascript.
+undefined (value is not set by you), null,  boolean (true / false), number (its floating point number), string (sequence of characters),
+symbol (its new, used in ES6)
+
+=> operators
+a special function that is written differently. generall operators take two parameters and return one result.
+
+=> javascript Objects
+
+var person = new Object();
+person['fname'] = 'tony';
+person['lname'] = 'Alicea';
+
+you can access the object properies using [] or dot operator.   
+An object can contain primitive property, another object property or function property.
+An object can be created using new Object() as in line 105. another way to do the same thing
+var person = {};
+
+==> 
+A namespace is container for variables and functions.  typiclly to keep variables and functions of same name separate.  
+Objects can be used as namespace. see below example
+
+var greet = "Hello";
+var greet = "Hola";
+console.log(greet); // this will print hola. 
+
+now what to do so that these two variabls with same name dont collide. Make two objects.
+
+var english = {};
+var spanish = {};
+english.greet = "Hello";
+spanish.greet = "Hola";
+
+Done !!
+
+==> 
+json and javascript object literals.
+any valid json can be used as javascript object literals. 
+
+javascript object literal:
+
+var person = {
+    fname: 'akhi',
+    lname: 'kumar'
+};
+
+In json, the property should be double quotes. In fact, in javascript object literals, property can be in duble quotes but not necessary.
+
+vaild json:
+
+{
+    "fname": "akhi",
+    "lname": "kumar"
+}
+
+=> javascript comes with JSON object which can be used to convert json to object and vice versa.
+check following two: 
+JSON.strigify();
+JSON.parse();
+
+=> first class functions:
+everything that you can do with other types (like number, objects ..), you can do with functions. Functions are actually objects.
+functions can be assigned to variables, pass them around, create them on the fly.
+
+Functions are special type of obejcts. So it can have primitive property, object property or function property. In additon to these, it can have a name (or can be anonymous), also it has code which can be invoked. So when a function is called, new execution context is created.
+
+Example:
+
+//
+function greet() {
+    console.log('Hello world');
+}
+greet.name = "AKhilesh";
+//
+
+So in the above code, greet() is a function. but we can also assign property to it (line 168) as it is an object.
