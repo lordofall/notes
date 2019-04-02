@@ -1,0 +1,75 @@
+Functional interfaces in java: the interface contains just one abstract method. Java 8 provides functional interface like Predicate, Consumer, Supplier etc. 
+
+The functional interface "Predicate" is in the package java.util.function. Predicate represents a boolean-valued function of one argument.
+
+interface Predicate<T> 
+{
+   boolean test(T t);
+}
+
+
+---
+"Consumer" is other FI in the same package. It represents a function which accepts one argument and returns nothing.
+
+interface Consumer<T> 
+{
+  void accept(T t); 
+}
+
+---
+"Supplier" supplies the result.
+
+interface Supplier<T>
+{
+   T get();
+}
+
+-----
+
+Question 1: 
+What is the following method converted to after type erasure?
+public static <T extends Comparable<T>>
+    int findFirstGreaterThan(T[] at, T elem) {
+    // ...
+}
+
+Answer 1: 
+public static int findFirstGreaterThan(Comparable[] at, Comparable elem) {
+ // ...
+}
+
+-----
+ You cannot create a static field of the type parameter T. 
+
+------
+
+Queston 2:
+Given the following classes:
+class Shape { /* ... */ }
+class Circle extends Shape { /* ... */ }
+class Rectangle extends Shape { /* ... */ }
+
+class Node<T> { /* ... */ }
+Will the following code compile? If not, why?
+Node<Circle> nc = new Node<>();
+Node<Shape>  ns = nc;
+
+Answer 2: No, because Node<Circle> is not a subtype of Node<Shape>.
+
+----
+Question 3:
+Consider this class:
+class Node<T> implements Comparable<T> {
+    public int compareTo(T obj) { /* ... */ }
+    // ...
+}
+Will the following code compile? If not, why?
+
+Answer 3: Yes.
+Node<String> node = new Node<>();
+Comparable<String> comp = node;
+
+-------------
+
+Generic Types are instantiated to form parametrized types. A class like LinkedList<E> is generic type, that has type parameted E.
+Instantiations, such as LinkedList<String> or LinkedList<Integer> are called parametrized types. 
