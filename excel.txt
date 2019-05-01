@@ -1,0 +1,20 @@
+excel:
+
+status bar at footer
+overtype
+----------------
+absoulte reference & named reference
+there is cell B3 where I have put a value which is used as multipiler.
+in any cell, we write formula =C5*B3
+if we use autofill downward, we will get
+C6*B4
+C7*B5
+
+but our goal is to keep B3 in all the formulas.
+so, =C5*$B$3 
+$B$3 is absolute reference
+so now B3 wont change.
+
+there is another way. rename the B3 to 'multiplier' and it can be used as a variable in entire workbook. 
+This 'multiplier' is named reference. 
+----------------
