@@ -1,0 +1,120 @@
+why Generics ? 
+Following code doesnt give you any compilation error but you may gat a runtime error.
+ArrayList list = new ArrayList();
+list.add("a");
+list.add("b");
+list.add(1);
+
+the above list can contain any object so we can add string and integer both in the list. But we may get classcastexception at runtime. 
+Now consider the below code:
+ArrayList<String> list = new ArrayList<>();
+list.add("a");
+list.add("b");
+list.add(1);
+
+so you will get the compile time error when you add integer. 
+So generics ensures type-safety. You get the error at compile time instead of runtime.
+
+-- Objects.requireNonNull(name); // mostly used in constructors or methods for parameter validation.
+
+--------------------
+*implementing Generic type
+AgeComparator implements Comparator<Person>
+
+*passing a parameter to generic type
+class Reversal<T> implements Comparator<T> {
+	private final Comparator<T> delegateComparator;
+	Reversal(Comarator<T> delegate) {
+		this.delegateComparator = delegate;
+	}
+	
+	public int compare(T left, T right) {
+		return -1*delegateComparator.compare(left, right);
+	}
+}
+
+*Type bound
+class SortedPair<T extends Comparable<T>> {
+	private final T first;
+	private final T second;
+	SortedPair(T left, T right) {
+		if(left.compareTo(right) < 0) {
+			first = left; second = right;
+		}	
+		else {
+			first = right; second = left;
+		}
+	}
+	public T getFirst() {
+		return first;
+	}
+	public T getSecond() {
+		return second;
+	}
+}
+
+
+------generic method--------
+* find minimum in a list
+// non generic method
+public static Object min(List values, Comparator comparator) {
+	// defensive coding, check if values is empty then trow runtime error
+	if(values.isEmpty()){
+		throw IllegalArgumentException("values is empty, cannot find minimum");
+	}
+
+	Object lowest = values.get(0);
+	for(int i = 1; i < values.size(); i++ ) {
+		Object element = list.get(i);
+		if(comparator.compare(element, lowest)<0){
+			lowest = element;
+		}
+	}
+	return lowest;
+}
+
+// generic method. 
+public static <T> T min(List<T> values, Comparator<T> comparator) {
+	// defensive coding, check if values is empty then trow runtime error
+	if(values.isEmpty()){
+		throw IllegalArgumentException("values is empty, cannot find minimum");
+	}
+
+	T lowest = values.get(0);
+	for(int i = 1; i < values.size(); i++ ) {
+		T element = list.get(i);
+		if(comparator.compare(element, lowest)<0){
+			lowest = element;
+		}
+	}
+	return lowest;
+}
+
+so the method can be used as following:
+min(persons, new AgeComparator());
+
+List<Integer> intList = new ArrayList<>(); // <> is called diamond operator
+intList.add(1);
+intList.add(2);
+intList.add(3);
+min(intList, Integer::compare); // method reference in java 8
+
+--------Method references in java 8-------------------
+Instead of using an anonymous class, use lambda expression.
+If lambda exmpression calls just one method, you can use a method reference.
+e.g. 
+Consumer<String> c = s -> System.out.println(s);
+
+the above line can be replaced by:
+Consumer<String> c = System.out::println;
+
+
+---------see Collectons.min() method to understand wild cards ----
+---Consumer, BiPredicate---
+wild cards:
+
+List<? extends Cls> - upper bounded
+List<? super Cls> - lower bounded
+List<?> - unbounded
+-----
+Arrays is java are covariant so they are not safe. 

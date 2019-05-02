@@ -1,0 +1,34 @@
+-Get data with extends
+-Put data with super
+-use ? instead of '? extends Object'
+-when you have to do both operation, get and put then dont use wildcards
+
+---
+
+List<Object> objectList = new ArrayList<>();
+List<String> stringList = objectList; // it gives compilation error. generics are not covariant. 
+
+But if we use Raw type, then we can assign raw list to a generic list of String. e.g.
+List rawlist = new ArrayList();
+List<String> strList = rawList; // this is fine.
+Raw types are there for compatibility, but type safety can take a hit.
+So this is wrong assumption that raw type are kind of generics of type parameter Object.
+
+---
+How generics are implemented.
+1. erase type parameters
+2. add casts
+3. add bridge methods
+
+Erasure: how generics are erased at runtime
+List<String>, List<Integer> List<List<Integer>>   --> List
+List<String>[]  --> List[]
+T without bounds --> Object
+T extends Foo --> Foo
+
+----------
+Following overloading doesnt work.
+
+void print(List<String> list) {}
+void print(List<Integer> list) {}
+you will get compilation error. that the both methods have same erasure. which means that after type erasure, both will be like void print(List list) {}
