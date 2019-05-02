@@ -1,0 +1,18 @@
+1) The workflow has validation errors. Review and resolve them first.
+
+System.Activities.InvalidWorkflowException: The workflow has validation errors. Review and resolve them first. ---> System.Activities.ValidationException: Compiler error(s) encountered processing expression "content".Invalid L-value expression.:Reference expressions cannot end with Conversion. The provided expression's type must exactly match the type T of VisualBasicReference<T> or LambdaReference<T>.
+   --- End of inner exception stack trace ---
+ 
+-changed the type of content to 'Generic'
+
+2)
+
+The workflow has validation errors. Review and resolve them first.
+
+System.Activities.InvalidWorkflowException: The workflow has validation errors. Review and resolve them first. ---> System.Activities.ValidationException: Compiler error(s) encountered processing expression "cityName".Invalid L-value expression.:Reference expressions cannot end with Conversion. The provided expression's type must exactly match the type T of VisualBasicReference<T> or LambdaReference<T>.
+   --- End of inner exception stack trace ---
+   
+   
+<iframe src="" height="600" width="800"></iframe>
+
+<iframe src="http://10.0.19.240:5601/app/kibana#/dashboard/AWgT3BQrdkbfqXFJlKF6?embed=true&_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-30d,mode:quick,to:now))&_a=(description:'',filters:!(),options:(darkTheme:!f),panels:!((col:1,id:AWgT2S03dkbfqXFJlKF5,panelIndex:1,row:1,size_x:12,size_y:4,type:visualization)),query:(match_all:()),timeRestore:!f,title:last30DaysDashboard,uiState:(),viewMode:view)" height="600" width="800"></iframe>
