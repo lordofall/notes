@@ -31,4 +31,11 @@ Following overloading doesnt work.
 
 void print(List<String> list) {}
 void print(List<Integer> list) {}
-you will get compilation error. that the both methods have same erasure. which means that after type erasure, both will be like void print(List list) {}
+
+you will get compilation error. that the both methods have same erasure. which means that after type erasure, 
+both will be like void print(List list) {}
+
+----------
+$ javap -s -c -classpath target/classes com.pack.TypeErasure
+The javap command disassembles a class file. The javap command displays 
+information about the fields,constructors and methods present in a class file   

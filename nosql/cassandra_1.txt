@@ -1,0 +1,25 @@
+apache cassandra is column-oriented database.
+NoSQL databases are schema-less unlike RDBMS.
+implements dynamo-style replication model with no single point of failure.
+highly scalable - add more hardware to serve more user and accomodate more data.
+no single point of failure so it is continuously available.
+it increases your throughput if you increase the nodes in the cluster.
+cassandra supports ACID(atomicity, Consistency, Isolation, Durability). Usually nosql are only consistent and there is no transaction support. But cassandra has transaction support.
+Cassandra has peer-to-peer distribution system across nodes and data is distributed among all clusters in the node.
+All the nodes in the cluster play the same role. Eash node is independent and at the same time interconnected with other nodes. each nodes supports read/write operation. If one node goes down, requests can be served by other nodes.
+So one node receives the write-request, after writing the data, it replicates to its neighbors and they in turn do the same so same data is replicated in all nodes in the cluster.
+cassandra uses "gossip protocol" in the backgroud and communicate with each other and detect any faulty node in the cluster.
+
+-----components of cassandra-------
+Node: where data is stored
+Data centre: collection of related nodes
+cluster: contains one or more data centre
+Commit log: crash recovery mechanism. all write operations are written in commit log.
+Mem-tables: in memory data strucure. after commit log is written, data is stored in these mem-tables.
+SSTable: whem mem-tables reaches its threshold, data is written here. it is disk file.
+Bloom filter: (i didnt understand)
+
+-----------------------------------
+Cassandra Query Language - CQL
+CQL treats the database (Keyspaces) as container of tables. !!!???
+Client can approach any node for read-write operation. That node acts as proxy between client and the node holding the data.
