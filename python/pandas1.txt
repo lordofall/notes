@@ -1,0 +1,69 @@
+import pandas as pd
+
+1) DataFrame 
+A DataFrame is a table.
+
+$ pd.DataFrame({'Yes': [50, 21], 'No': [131, 2]})
+
+	Yes	No
+0	50	131
+1	21	2
+
+> The list of row labels used in a DataFrame is known as an Index.
+
+$ pd.DataFrame({'Bob': ['I liked it.', 'It was awful.'], 
+              'Sue': ['Pretty good.', 'Bland.']},
+             index=['Product A', 'Product B'])
+			 
+	        Bob  			Sue
+Product A	I liked it.		Pretty good.
+Product B	It was awful.	Bland.
+
+
+$ fruits = pd.DataFrame([[30, 21]], columns=['Apples', 'Bananas'])
+	 Apples  Bananas
+0      30       21
+
+2) A Series, by contrast, is a sequence of data values. If a DataFrame is a table, a Series is a list.
+
+$ pd.Series([1, 2, 3, 4, 5])
+
+0    1
+1    2
+2    3
+3    4
+4    5
+dtype: int64
+
+A Series is, in essence, a single column of a DataFrame
+
+$ pd.Series([30, 35, 40], index=['2015 Sales', '2016 Sales', '2017 Sales'], name='Product A')
+
+2015 Sales    30
+2016 Sales    35
+2017 Sales    40
+Name: Product A, dtype: int64
+
+3) create dataframe from a csv file
+$ wine_reviews = pd.read_csv("../winemag-data-130k-v2.csv")
+
+or
+
+$ wine_reviews = pd.read_csv("../winemag-data-130k-v2.csv", index_col=0)
+
+$ wine_reviews.shape
+(129971, 14)
+
+around 130000 rows, 14 columns
+
+4) examine the contents of the resultant DataFrame using the head command, which grabs the first five rows
+
+$ wine_reviews.head()
+
+5) write to csv, or excel or sql
+$ wine_reviews.head().to_csv("wine_reviews.csv")
+
+$ wic.to_excel('wic.xlsx', sheet_name='Total Women')
+
+$ conn = sqlite3.connect("fires.sqlite")
+$ fires.head(10).to_sql("fires", conn)
