@@ -1,0 +1,50 @@
+functions start with def.
+example:
+
+def square(x):
+    return x*x
+
+----
+
+now we write a python file with one function. it won't call itself.
+
+special attributes in python are delimited by double underscores.
+eg. __name__
+
+python runtime system defines some special variables which are delimited by double underscores. like __name__, __main__
+
+
+so when we run python script from REPL, print(__name__) prints the module name. words.
+>>>import words
+words
+if we run the same script from command line, like following, then it prints __main__
+$ python words.py
+__main__
+
+---------
+to get command line argument:
+"url = sys.argv[1]"
+and to use this, must "import sys"
+
+see argparse library for getting input arguments from user. 
+
+----document your code -----
+docstring is the factility to document python code. 
+docstring is between triple quotes, like following
+    """ Fetch a list of words from the url.
+    example url: http://sixty-north.com/c/t.txt
+    
+    Args: 
+        url: The url of a UTF-8 text document
+        
+    Returns: 
+        A list of strings containing the words 
+        from the document.
+    """
+  
+now in REPL, you can get the help of this method
+>>> from words impirt fetch_words
+>>> help(fetch_words)
+
+----comment your code---------
+using #

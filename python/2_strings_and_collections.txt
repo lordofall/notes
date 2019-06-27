@@ -1,0 +1,89 @@
+Four type of collections
+-str
+-bytes
+-dict
+-list
+
+str - immutable sequences of unicode codepoints
+
+adjacent string literals are concatenated.
+>>> "first" "second"
+'firstsecond'
+
+strings with newlines
+1) use multiline strings
+multiline strings begins with three quotes
+e.g.
+>>> """this is
+... multiline tring
+... yes"""
+'this is \nmultiline tring\nyes'
+>>>
+
+2) or escape sequnces
+>>> "this contains newline \n and its ok"
+
+------
+>>> c = 'oslo'
+>>> c.capitalize()
+'Oslo'
+>>> c
+'oslo'
+
+strings are immutable, so once created cannot be changed.
+----bytes--------
+bytes are similar to str. immutable sequences of bytes (not of unicode as in str).
+>>> x = b'some bytes'
+>>> x.split()
+[b'some', b'bytes']
+
+bytes supports method similar to string.
+
+imp: bytes can be convertd to str and vice versa. using proper encoding. It is important as files, network resources or http responses, all are byte stream and has to be converted to string.
+
+-----list--------
+mutable sequences of objects
+>>> [1,9,8]
+list of integers
+>>> a = ["apple", "orange", "pear"]
+lists can be retrieved using zero based index
+>>> a[1]
+'orange'
+>>> a[1] = 7
+>>> a
+['apple', 7, 'pear']
+so list can be heterogeneous.
+
+>>> b = []  // created emptly list
+>>> b.append(1.2)  // added value in the list
+
+there is a consrutor list
+>>> list("abcd")
+['a', 'b', 'c', 'd']
+-------dict-----------
+mutable mappings to keys to values	
+created using curly braces
+>>> d = {'a': '1', 'b' : '2'}
+>>> d['a']
+'1'
+>>> d['a'] = 'ram'
+>>> d
+{'a': 'ram', 'b': '2'}
+>>> x = {} //empty dict created
+
+--------------------
+
+>>> from urllib.request import urlopen
+>>> with urlopen('http://sixty-north.com/c/t.txt') as story:
+...     story_words = []
+...     for line in story:
+...             line_words = line.split()
+...             for word in line_words:
+...                     story_words.append(word)
+...
+>>> story_words
+[b'It', b'was', b'the', b'best', b'of', b'times', b'it', b'was', b'the', b'worst', b'of', b'times', b'it', b'was', b'the', b'age', b'of', b'wisdom', b'it', b'was', b'the', b'age', b'of', b'foolishness', b'it', b'was', b'the', b'epoch', b'of', b'belief', b'it', b'was', b'the', b'epoch', b'of', b'incredulity', b'it', b'was', b'the', b'season', b'of', b'Light', b'it', b'was', b'the', b'season', b'of', b'Darkness', b'it', b'was', b'the', b'spring', b'of', b'hope', b'it', b'was', b'the', b'winter', b'of', b'despair', b'we', b'had', b'everything', b'before', b'us', b'we', b'had', b'nothing', b'before', b'us', b'we', b'were', b'all', b'going', b'direct', b'to', b'Heaven', b'we', b'were', b'all', b'going', b'direct', b'the', b'other', b'way', b'in', b'short', b'the', b'period', b'was', b'so', b'far', b'like', b'the', b'present', b'period', b'that', b'some', b'of', b'its', b'noisiest', b'authorities', b'insisted', b'on', b'its', b'being', b'received', b'for', b'good', b'or', b'for', b'evil', b'in', b'the', b'superlative', b'degree', b'of', b'comparison', b'only']
+
+- so we are getting the list of bytes. we need to convert this  byte to string. so decide.
+
+line_words = line.decode('utf-8').split()

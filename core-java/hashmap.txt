@@ -1,0 +1,22 @@
+Internal of hash map.
+--------------------
+
+-Hashmap is array of nodes. 
+-A node contains following:
+1) hex 2) K key 3) V value 4) Node next
+
+- In hashmap, key is unique. it can be null as well.
+
+- Hashcode funcion of the key (Key is a class) is used to find the index of the array where the node will be put. 
+
+- Equals function is used to check whether keys are equal or not.
+
+If you override equals method, you must override hashcode as well. why ? lets says there is a class Employess.
+equals method is overriden in such a way that if name and id is same, object is same. 
+We must override hashcode in similar fashin, i.e. if name and id is same, hashcode of two objects must be same. 
+then only, they will have same index in the array and then it will check whether any key already present is equal or not.
+if equals, the node wont be added in the map.
+
+Now think if hashcode is not overridden. Then a scenario is possible where two objects are equal (name and id is same); but their hashcode 
+is different. so they will have different index. so duplicate keys can be inserted. Hashmap will behave erratically.
+

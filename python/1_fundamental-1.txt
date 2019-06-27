@@ -1,0 +1,198 @@
+In the REPL (the command prompt for python which reads, evaluate, print, loop; REPL starts with >>>)
+type following to get zen of python
+>>>import this
+
+zen of python
+-------------
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+
+-------conda powershell---------
+open anaconda power shell
+1)update python to 3.6
+Create a new environment
+$conda create --name py36 python=3.6
+ 
+# To activate this environment, use
+#
+#     $ conda activate py36
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+2)$ conda list
+lists packages in the environment
+
+3)$ conda info --envs
+will show all environent
+
+4) to activate python environment py36 
+$ conda activate py36
+verify using python -V
+
+5) get REPL by typing python
+$ python
+>>>
+-------for loop------------
+>>> for i in range(5):
+...     x = i * 10
+...     print(x)
+...
+
+--------import module------------
+>>> import math
+>>> math.sqrt(81)
+9.0
+
+if you want to import just factorial method of module math
+>>> from math import factorial as fac
+>>> fac(5)
+120
+>>>
+--------get help------------
+>>> help(math)
+>>> help(math.factorial)
+
+--------integer division and double division operator------
+>>> 10 / 2
+5.0
+so / is double division operator. But if we know that return type will be integer than use double // called integer division operator
+>>> 10 // 2
+5
+---------how large is an integer in python------------------
+in java, max value of integer can be 2^31 - 1 which is following:
+>>> 2**31-1
+2147483647
+
+what is factorial 13.
+>>> math.factorial(13)
+6227020800
+so in java, you are going to need long. forget about factorial(100)
+
+>>> math.factorial(100)
+93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
+
+so limit of integer type is limit of your memory.
+
+question: you have to find the ways 2 type of fruits can be chosen out of 100.
+>>> n=100
+>>> k=2
+>>> from math import factorial as fac
+>>> fac(n) // (fac(k) * fac(n-k))
+4950
+
+question: string length of factorial n
+>>> len(str(fac(n)))
+158
+
+------------scalar types--------------
+int, float, NoneType, bool
+
+>>> int(5)
+5
+>>> int(-5.6)
+-5
+>>> int(3.5)
+3
+>>> int("2000")
+2000
+--folat----
+double precision(64 bit)
+53 bits of binary precision, 15 to 16 bits of decimal precision
+>>> 3.125
+3.125
+>>> 3e8
+300000000.0
+its light speed.
+
+plancks constant 1.616 x 10^-35 
+>>> 1.616e-35
+1.616e-35
+
+using float constructor, we can create floats.
+>>> float(7)
+7.0
+>>> float("1.618")
+1.618
+>>> float("nan")
+nan
+>>> float("inf")
+inf
+>>> float("-inf")
+-inf
+minus infinity
+
+In python None is null.
+>>> a = None
+>>> a is None
+True
+
+Bool type is True and False.
+bool constructor
+
+>>> bool(0)
+False
+>>> bool(1)
+True
+>>> bool(0.0)
+False
+
+-converting empty list to boolean gives False
+>>> bool([])
+False
+>>> bool([1,2])
+True
+>>> bool("")
+False
+>>> bool("abc")
+True
+
+
+-----if-else-elif----------
+if j > 50:
+    print("hello")
+elif h < 50:
+    print("hello2")
+else:
+    print("hello3")
+
+------while-----------------
+while expr:
+    print("within while loop")
+
+expr is converted to bool as if by the bool() constructor.
+
+Python also has break keyword similar to java.
+
+while loop and get the input from user:
+>>> while True:
+...     response = input()
+...     if int(response) == 0:
+...         break
+...
+34
+28
+0
+>>>
+
+Python Enhancement proposals(PEP)
+PEP 8 - python style guide
+PEP 20 - The zen of python

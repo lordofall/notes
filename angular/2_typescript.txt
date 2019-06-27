@@ -1,0 +1,21 @@
+About typescript
+================
+Typescript playground: http://www.typescriptlang.org/play/
+
+Typescript is javascript with optional typing. Typescript is compiled to javascript. Typescript is not interpreted at runtime.
+
+Install Typescript
+$ npm install -g typescript
+
+Test whether typescript is installed ?
+$ tsc -v
+
+Following command will compile app.ts to app.js
+$ tsc app.ts
+
+You can compile multiple ts files in one command. Following will generate three js files.
+$ tsc app.ts abc.ts xyz.ts
+
+You can also compile all ts files in one javascript file.
+$ tsc *.ts --out app.js
+

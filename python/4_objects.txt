@@ -1,0 +1,143 @@
+integer objects in python are immutable and cant be changed.
+x = 1000
+x = 500
+
+so two integer objects are created and x is pointing to 500. and first variable will be reclaims by garbage collector as not refrenced by any variable.
+
+---
+id() returns the unique identifier for an object.
+so id(x) will give some id. 
+id() deals with object not with reference. 
+
+assignment operator always binds to name. it never copis the object by value.
+>>> x = 50
+>>> y = x
+>>> x is y
+True
+'is' operator compares the reference. 
+
+== operator compares the content. 
+
+---------
+
+>>> p = [4 ,7, 11]
+>>> q = [4, 7, 11]
+>>> p ==q
+True
+>>> p is q
+False
+
+-------value equality vs identity---
+value - equivalent 'content'
+identity - same object
+-----------------------
+
+>>> x = 50
+>>> y = 50
+>>> x == y
+True
+>>> x is y
+True
+>>> id(x)
+1882419504
+>>> id(y)
+1882419504
+---------pass by object reference ---------------
+
+in any method, method argument is passed as reference, not the value of the object.
+
+x = [1,2,3]
+def replace(k):
+    k.append(4)
+ 
+replace(x)
+
+so x will become [1,2,3,4]
+
+-------default arguments in methoda parameter-----------
+
+>>> def banner(message, border='-'):
+...     line = border * len(message) #this is called repitition operation. 
+...     print(line)
+...     print(message)
+...     print(line)
+...
+>>> banner('arora borealis')
+--------------
+arora borealis
+--------------
+>>> banner('galaxy milky way', '*')
+****************
+galaxy milky way
+****************
+
+In above example, we have provided default value for the second parameter border.  
+so while calling the method, we can omit the second parameter.
+
+also, we can call the method with its name:
+>>> banner(message='abcd', border='.')
+
+it should be remembered that positional argument (without variable name) should come first.
+
+--------------------------------------------------
+>>> import time
+>>> time.ctime()
+'Wed Jun 26 23:21:14 2019'
+>>> def show_default(arg=time.ctime()):
+...     print(arg)
+...
+>>> show_default()
+Wed Jun 26 23:21:52 2019
+>>> show_default()
+Wed Jun 26 23:21:52 2019
+>>> show_default()
+Wed Jun 26 23:21:52 2019
+
+here, we see that time.ctime() gives the same time again and again. because the default argument values are 
+evaluated when def is evaluated. and it is done once. 
+
+----------------------------------------------------
+
+in a dynamic type system, object types are resolved at runtime only.
+
+>>> def add(a, b):
+...     return a+b
+...
+>>> add(5,4)
+9
+>>> add('abc', 'xyz')
+'abcxyz'
+>>> add([1,2], [3,4])
+[1, 2, 3, 4]
+>>> add('the result is ', 12)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in add
+TypeError: must be str, not int
+
+In the above example, at runtime, we know the type of a and b. in first case, it is interger, then str, and then list. so wherever the + operator is valid,
+we can use those types as parameter in the add methods.
+now when we try to add a string and integer, it gives error. since python is strongly typed system, it doesnt convert from one type to another.
+in java, it would have converted integer to string and then concatenate it. In python, it doesnt happen. 
+-------------------------scopers------------------------
+
+4 types of scopes. (1) local (2) enclosing (3) global (4)builtin
+scopes are the context where the named reference ( x = 100 , here x is named reference) can be looked up.
+
+----------------------------------------------------------
+everything is object in python. primitive objects (like int, str), functions , modules etc. all are objects. 
+
+>>> import words
+>>> type(words)
+<class 'module'>
+>>> dir(words)
+['__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'fetch_words', 'main', 'print_items', 'sys', 'urlopen']
+
+>>> type(words.fetch_words)
+<class 'function'>
+>>> dir(words.fetch_words)
+['__annotations__', '__call__', '__class__', '__closure__', '__code__', '__defaults__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__get__', '__getattribute__', '__globals__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__kwdefaults__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
+>>>
+
+
+so dir() can be used to introspect an object and return its attributes.

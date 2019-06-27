@@ -1,0 +1,17 @@
+Angular setup
+
+1. Install nodejs and npm 
+
+2. Install angular cli 
+npm install -g @angular/cli 
+
+3.    create angular project 
+• mkdir angularworkspace 
+• cd angularworkspace 
+• ng new helloworld 
+• cd helloworld 
+• ng serve 
+
+
+
+ 
