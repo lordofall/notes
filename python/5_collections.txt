@@ -1,0 +1,58 @@
+collection types:  tuple, str, range, bytes, dict, list, set
+-----------------------------------------------------------
+tuple is immutable sequence of arbitrary objects.
+tuple are delimited by parenthesis.
+
+>>> t = ("somestring", 4.57, 3)
+so this is a tuple 
+
+>>> t = ('Norway', 4.5, 3)
+>>> t[0] # tuple can be accessed same as array, zero based index
+'Norway'
+>>> len(t) # length of tuple using in-built len function
+3
+>>> for item in t: # usual for loop
+...     print(item)
+...
+Norway
+4.5
+3
+>>> t + (3.88) # tuples can be concatenated, but (3.88) is float. add a trailing comma to make this a tuple.
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate tuple (not "float") to tuple
+>>> t + (3.88,) # concatenation of tuple
+('Norway', 4.5, 3, 3.88)
+>>> t*3 # using multiplication operator, tuples can be repeated.
+('Norway', 4.5, 3, 'Norway', 4.5, 3, 'Norway', 4.5, 3)
+>>>
+
+tuples can contain tuples. 
+
+>>> t = () # empty tuple
+we can also omit parenthesis. like following. but not recommended. as zen of python says, explicit is better than implicity.
+>>> t = 1,2,3,4
+
+--------tuples are useful for multiple return values like following:-------
+>>> def minmax(items):
+...     return min(items), max(items)
+...
+>>> minmax([20, 25, 0, 9 , 30])
+(0, 30)
+
+we can directly assign values of tuple to named references. 
+>>> low, high = minmax([20, 25, 0, 9 , 30])
+>>> low
+0
+>>> high
+30
+----use tuple constructor to get tuple from iterables like list, string-----
+>>> tuple([1,2,3])
+(1,2,3)
+>>> tuple("abc")
+('a', 'b', 'c')
+
+----use 'in' or 'not in' operator -----
+>>> t = (1,2,3)
+>>> 1 in t
+True
