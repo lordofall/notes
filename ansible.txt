@@ -1,0 +1,95 @@
+Ansible automates IT operations like application deployment, intra-service orchestration, cloud provisioning and manyt other things.
+Ansible provides simple automation language that can describe IT application infrastrucure in Ansible playbooks.
+Ansible provides the automation engine which runs the playbooks.
+Ansible tower is an enterprise framework for contolling, securing and managing your ansible automation with a UI and restful API.
+Ansible is agent less. uses openssh and winrm to communicate to remote machines. 
+
+what is does:
+1. config management
+2. app deployment
+3. provisioning
+4. continuous delivery
+5. security and compliance
+6. orchestration??
+
+what we need to achieve automation of IT operation
+-inventory ie. list of hosts 
+-playbook which will have actual tasks
+it uses ssh to communicate with unix machines . 
+it uses WinRM to communicate with windows machines.
+it uses API to communicate with communicate with cloud.
+
+
+----
+installation:
+$ sudo apt install ansible
+or 
+$ sudo yum install ansible
+it will install python as well. 
+
+check if ansible is installed
+$ ansible --version
+ansible 2.8.0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Apr 11 2018, 07:36:10) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
+
+--------
+playbooks are plain-text yaml files.
+playbooks contain plays.
+plays contain tasks.
+tasks call modules.
+
+tasks run sequentially.
+
+handlers are triggered by tasks and are run once, at the end of plays.
+
+Using Ansible roles, a large complex playbooks can be divided into smaller playbooks which can be resused.
+
+ansible_galaxy is repository of user generated roles.
+
+------
+3 ways to run
+1)Ad-hoc
+ansible <inventory> <options>
+ansible web -a /bin/date
+ansible web -m ping
+ansible web -m yum -a "name=openssl state=latest"
+
+2)using playbooks
+ansible-playbook <options>
+ansible-playbook my-playbook.yml
+
+ansible also provides check-mode (dry run) for ad-hoc commands and playbook.
+3)ansible tower (automation framework)
+
+---
+
+
+generate ssh key on client and copy to server
+on machine 10.0.19.240
+1) ssh-keyget -t rsa 
+this will generate public and private key on the client (where ansible is installed. here ansible is client and the remote machines where the playbooks will be executed are server). 
+2) ssh-copy-id root@10.0.19.209 -p 8821
+---
+
+test ansible
+$ansible captcha -m ping --ask-pass
+here captcha is host name. ping is command. --ask-pass will ask the password to connect to machine 'captcha'.
+
+the file /etc/ansible/hosts looks like this.
+[captcha]
+10.0.19.209:8821
+
+
+the port 8821 is provided as its not using default ssh port 22. 
+
+password can be mentioned in hosts file as well. so that no need to use --ask-pass option. but password should
+be stored in vault. (check vars and vaults)
+
+[captcha]
+10.0.19.209:8821 ansible_password=Qkiosk@4321
+
+

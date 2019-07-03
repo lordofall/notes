@@ -1,0 +1,32 @@
+---------Spring sleuth----------------
+Sleuth enhances log. It adds unique trace id  for all the web requests that enter our application.  Trace can be thought of like a single request or job. span can be thought of as  sections of a job.
+So one trace  can be composed of multiple spans.
+
+add  following dependency:
+    <dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-sleuth</artifactId>
+    </dependency>
+
+also add one property:
+spring.application.name=qcp
+
+all lines in log will be prefixed by following:
+[-,45f374e69bbac69d,45f374e69bbac69d,false]
+
+total 4 entries: 1st is for application name, 
+second: trace id
+third: span id
+fourth: whether export to zipkin
+
+-----zipkin---------------------
+zipkin is the log aggregator.  used for distributed tracing.
+
+1) create spring boot application
+2) add dependencies zipkin-server and zipkin-autoconfigure-ui , spring-boot-starter-web
+3) In spring boot main class, add annotation @EnableZipkinServer along with @SpringBootApplication
+
+Error 1 : Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean
+soln: add spring-boot-starter-web in the depenedncy
+
+Error 2: UnsatisfiedDependencyException: Error creating bean with name 'actuatorServerConfigurator'

@@ -1,0 +1,1 @@
+SNMP (Simple Network management protocol) is application layer prootocol like HTTP. SNMP is used by network devices like routers, switches, printer, cable modems, servers etc. 

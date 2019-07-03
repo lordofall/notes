@@ -1,0 +1,25 @@
+1) delete service
+$ sc delete Tomcat9
+
+2) query service
+$ sc query Tomcat9
+
+3)'rem' in batch file is for remark.
+
+4) create service 
+$ sc.exe create kibana binPath= "<path_to_the_service_executable>"
+
+5)find a process running on port 5601
+$ netstat -aon | findstr 5601
+ TCP    127.0.0.1:5601         0.0.0.0:0              LISTENING       9984
+
+-a = displays all connections and listening ports
+-o=displays the owning process id
+-n=displays addresses and ports in numerical form
+
+6) kill the process with id 9984
+$ taskkill /F /PID 9984
+
+7) find processid of a service and kill
+$ sc queryex Tomcat
+then taskkill command.
