@@ -1,0 +1,2 @@
+In top down approach, we try to solve bigger problem by recursively finding the solution of smaller sub-problems.
+In bottom up approach, solve all related sub-problems first. Here recursion is not required.  
