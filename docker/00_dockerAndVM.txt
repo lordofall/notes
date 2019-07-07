@@ -1,0 +1,6 @@
+https://www.freecodecamp.org/news/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b/
+
+VM - hardware vitualization
+Containers - Kernel virtualization
+
+VMs are run using hypervisor. 

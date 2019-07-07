@@ -1,0 +1,61 @@
+$vi /etc/ansible/hosts
+####################
+[app]
+192.168.60.4
+192.168.60.5
+
+[db]
+192.168.60.6
+
+# Group 'multi' with all servers
+[multi:children]
+app
+db
+
+
+# Variables that will be applied to all servers
+[multi:vars]
+ansible_ssh_user=vagrant
+ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
+
+######################
+
+1)to get hostname of all machines
+$ ansible multi -a "hostname"
+
+2) $ ansible multi -a "hostname" -f 1
+
+-f 1 means use one fork. so the command will run on all servers sequentially. By default, it runs parallely.
+
+3) disk space availability
+$ ansible multi -a "df -h"
+
+4) memory check
+$ ansible multi -a "free -m"
+
+5) check if date and time is same on all machine
+$ ansible multi -a "date"
+
+6) to get exhaustive list of all the environment details(like file system, memory, OS, network interfaces...)
+$ ansible multi -m setup
+
+7) now we want to install NTP (network time protocol) daemon on the servers to keep time in sync
+$ ansible multi -s -m yum -a "name=ntp state=installed"
+
+-s option alias for sudo
+-k alias for ask-sudo-password
+
+8) make sure the NTP daemon is started and set to run on boot.
+$ ansible multi -s -m service -a "name=ntpd state=started enabled=yes"
+
+9) make sure our servers are synced closely to the official time
+on the NTP server
+
+$ ansible multi -s -a "service ntpd stop"
+$ ansible multi -s -a "ntpdate -q 0.rhel.pool.ntp.org"
+$ ansible multi -s -a "service ntpd start"
+
+For the ntpdate command to work, the ntpd service has to be stopped, so we stop the service, run
+the command to check our jitter, then start the service again.
+
+

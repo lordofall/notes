@@ -1,0 +1,76 @@
+Cobbler - a configuration management tool.
+Func - a tool for communicating commands to remote server
+
+For configuration management, there are various tools being used like Puppet, Chef, cfengine.
+For server deployment - Capistrano, Fabric
+For ad-hoc task execution - Func, plain SSH
+
+So all these three (configuration management, server deployment and task execution) are wrapped in one tool, called ansible.
+
+-----
+If you want ansible on windows, use Linux virtual machine. Or configure Cygwin environment.
+
+1----
+how to install ansible
+$ sudo pip install ansible
+
+to upgrade ansible
+$ pip install --upgrade ansible
+
+
+On Fedora-like system, use yum package.
+On Redhat or Centos, you need to install EPEL's RPM before you install ansible.
+
+2-----
+to find out free memory of all machines under group 'example'
+
+$ ansible example -a "free -m" -u [username]
+
+to find out disk usage statistics
+$ ansible example -a "df -h" -u [username]
+
+3-------------VAGRANT-------------------------------
+vagrant, a server provisioning tool and virtual box, a local virtualization environment.
+vagrant is an amazing tool for managing virtual machines via a simple command line interface.  With a simple 'vagrant up' you can be working in a clean environment based on a standard template. These standard templates are called base boxes. here, on this site http://www.vagrantbox.es/, you can find 
+download boxes for different OS. so using virtualization environment (like VMWare virtualbox, vagrant-LXC, KVM), vagrant manages the virtual machines. 
+
+before installing vagrant and virtual box, 157 GB free 
+virtualbox - 168 MB
+vagrant - 209 MB
+
+download centos box and start the machine using vagrant
+https://computingforgeeks.com/how-to-addinstall-and-run-centos-7-vagrant-box-to-virtualbox-using-vagrant/
+
+$ vagrant box add envimation/ubuntu-xenial https://atlas.hashicorp.com/envimation/boxes/ubuntu-xenial
+add a centos virtual box using vagrant:
+$ vagrant box add geerlingguy/centos7
+
+create default virtual server configuration using:
+$ vagrant init geerlingguy/centos7
+
+boot your centos server up
+$ vagrant up
+
+so far, vagrant loaded the centos server, loaded it into virtual box with the configuration defined in the default vagrant file
+and booted the server up. Thus vagrant is a provisioning tool which provides the server, those servers run inside virtual box.
+
+stop server
+$ vagrant halt
+
+delete the machine from virtual box
+$ vargrant destroy
+
+running server (in the virtual box) can be connected via ssh
+go to folder where Vagrantfile is located and do following:
+$ vagrant ssh
+
+to get ssh config details:
+$ vagrant ssh-config
+
+you can install vagrant plugin as well from command prompt. 
+$ vagrant plugin install vagrant-reload
+
+
+-----------------------------------------------------------------
+NTP, network time protocol to synchronize time among clusters    |
+-----------------------------------------------------------------
