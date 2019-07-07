@@ -1,4 +1,4 @@
-Ansible automates IT operations like application deployment, intra-service orchestration, cloud provisioning and manyt other things.
+Ansible automates IT operations like application deployment, intra-service orchestration, cloud provisioning and many other things.
 Ansible provides simple automation language that can describe IT application infrastrucure in Ansible playbooks.
 Ansible provides the automation engine which runs the playbooks.
 Ansible tower is an enterprise framework for contolling, securing and managing your ansible automation with a UI and restful API.
@@ -46,7 +46,7 @@ tasks run sequentially.
 
 handlers are triggered by tasks and are run once, at the end of plays.
 
-Using Ansible roles, a large complex playbooks can be divided into smaller playbooks which can be resused.
+Using Ansible roles, a large complex playbooks can be divided into smaller playbooks which can be reused.
 
 ansible_galaxy is repository of user generated roles.
 
@@ -76,11 +76,11 @@ this will generate public and private key on the client (where ansible is instal
 ---
 
 test ansible
-$ansible captcha -m ping --ask-pass
+$ansible host_captcha -m ping --ask-pass
 here captcha is host name. ping is command. --ask-pass will ask the password to connect to machine 'captcha'.
 
 the file /etc/ansible/hosts looks like this.
-[captcha]
+[host_captcha]
 10.0.19.209:8821
 
 
@@ -92,4 +92,81 @@ be stored in vault. (check vars and vaults)
 [captcha]
 10.0.19.209:8821 ansible_password=Qkiosk@4321
 
+-------------------------
+1) Error:
+[quality@QKDSK395 ~]$ ansible captcha -m ping
+10.0.19.209 | FAILED! => {
+    "msg": "Using a SSH password instead of a key is not possible because Host Key checking is enabled and sshpass does not support this.  Please add this host' s fingerprint to your known_hosts file to manage this host."
+}
 
+run this command as root user.
+$su
+------------------------------------------
+$ export ANSIBLE_HOST_KEY_CHECKING=False
+
+you can also provide passwords in hosts file like following:
+[captcha:vars]
+ansible_password=Qkiosk@4321
+-----------------
+
+specify localhost by adding following in the inventory file (/etc/ansible/hosts)
+localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+
+--
+awx - open source ansible tower
+
+-----ansible-galaxy---------
+to show list of roles insalled
+$ ansible-galaxy list
+
+to remove an installed role
+$ ansible-galaxy remove username.role_name
+
+-------awx installation -------------------------
+awx will run within docker. it uses postgres, rabbitmq, memcache. 
+
+1) check firewall status
+$ systemctl status firewalld
+
+to disable firewall
+$ systemctl stop firewalld
+$ systemctl disable firewalld
+
+2) check status of SELinux, should be disabled
+$ seStatus
+
+3) check repository list
+$ yum repolist
+
+4) add epel-release repository
+$ yum install epel-release
+
+5) prerequisite for awx: git, gettext, ansible, docker, nodejs, npm, gcc-c++, bzip2, python-docker-py
+$ yum -y install git gettext ansible docker nodejs npm gcc-c++ bzip2 python-docker-py
+
+6) start docker service
+$ systemctl start docker
+
+enable docker whenn system starts
+$ systemctl enable docker
+
+check the docker status
+$ systemctl status docker
+
+7) now download awx from git
+docker
+$ git clone https://github.com/ansible/awx.git
+
+8) go to awx/installer folder and run ansible-playbook command
+$ ansible-playbook -i inventory install.yml
+error: *
+fatal: [localhost]: FAILED! => {"changed": false, "msg": "Unable to load docker-compose. Try `pip install docker-compose`. Error: No module named compose"}
+
+$ yum install python-setuptools
+$ sudo easy_install pip
+$ pip install docker-compose
+
+again run install.yml.
+
+check the logs. 
+$ docker logs -f awx_task
