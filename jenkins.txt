@@ -1,0 +1,17 @@
+Error 1: while running jenkins "java -jar jenkins.war", getting this error
+SunCertPathBuilderException: unable to find valid certification path to requested target
+
+https://support.cloudbees.com/hc/en-us/articles/217078498-PKIX-path-building-failed-error-message
+
+Solution:
+java -jar -Djavax.net.ssl.trustStore=C:\Progra~1\Java\jdk1.8.0_45\jre\lib\security\cacert -Djavax.net.ssl.trustStorePassword=changeit jenkins.war
+didnt work.
+
+-Cacerts file (java_home/jre/lib/sercurity/cacerts) : its collection of trusted CA (certificate authority) 
+certificates. VeriSign is a certificate authority.
+-The essential requirement is that the certificate authority that signed the Service Manager server’s 
+certificate must be in the list of certificate authorities named in this file. 
+-certificates can be seen using 'keytool' utility.
+-To use a self-issued server certificate created with OpenSSL or a tool such as Microsoft Certificate Server™, 
+you must import the certificate for this private certificate authority into the cacerts file that 
+the client uses for SSL.
