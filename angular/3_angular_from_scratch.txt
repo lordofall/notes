@@ -1,0 +1,218 @@
+-set up module loader
+-use npm to install dependecies, ployfills, typescript compiler, and some other tools
+-create minimal application skeleton
+-write code for bootstrapping it
+
+Modules are key feature of typescript. The module system is based on ES6. 
+
+In Angular, modules serves as an encapsiluation mechanism for the application building block - components, directives, pipes. And while there is no encapsulation of service, modules still act as container where services can be registered.
+
+ESM (ES6) modules are not specific to angular, but act as an encapsulation mechanism for generic javascript/ typescript code.
+
+Major update to ECMAScript specification is support of native module in the javasacript language.
+
+SystemJS, webpack are the module loaders. Angular CLI used systemJS until it moved to webpack.
+
+--------a little more about module loader----------------
+When tsc (typescript compiler) compiles typescript into javascript, you end up with bungs of js files. They somehow need to be loaded in the browser. 2 options. either put them in index.html file in correct order of dependencies or use a module loader to load those javascript in the browser.
+
+In tsconfig.json, you will find compiler options where you provide the module which will load the js files in the browser.
+
+{
+    "compilerOptions": {
+        "targer": "es5",
+        "module": "commonjs",
+         ....
+}
+
+there are many loaders like requirejs, webpack, systemjs and others. 
+if you were to put module: 'es6', you would see that in your compiled javascript files, the import and export statements are preserved.
+
+---------------
+Once the browser support API for dynamic loading, the need to these loaders like SystemJS will be eliminated.
+---------------
+A polyfill, or polyfiller is a piece of code (or plugin) that provides the technology that you, the developer, expepct the browser to provide natively.  Usually it refers to a javascript library that implements an HTML5 web standard which is yet not supported by browser. Formally, "a polyfill is a shim from a browser API". 
+shim - A shim is a library that transparently intercepts API calls, changes the arguments passed or handles the operation itself or redirects the operation elsewhere.
+check this url. https://html5please.com/ 
+it has list of polyfills who provide different functionalities of HTML 5. 
+---------------
+$ npm init -y
+npm init creates pacakge.json. -y option accepts the defaults.
+
+-third party dependencies not provided by angular
+1) core-js -  its a polyfill. it patches the global object (window) with essential features of ES2015.  you may substitute with an alternative polyfill that provides the same core APIs.  
+2) rxjs - it provides an Observable implementation.  Utilized by several parts of angular framework, such as HTTP and Forms module. it includes methods for transforming, composing and queryng streams of data.
+3) zone.js - provides mechanism to hook into asynchronoys operations and track outstanding async tasks.
+
+so install third party dependencies by running
+$ npm i --save core-js zone.js rxjs
+
+install module loader 'systemjs'
+$ npm i --save systemjs
+
+To properly work systemjs needs some configuration. 
+create systemjs.config.js and add following:
+
+System.config({
+  paths: {
+    'npm:': '/node_modules/'
+  },
+  map: {
+    app: 'dist/app',
+    '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+    '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+    '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+    '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+    '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+    'core-js': 'npm:core-js',
+    'zone.js': 'npm:zone.js',
+    'rxjs': 'npm:rxjs',
+    'tslib': 'npm:tslib/tslib.js'
+  },
+  packages: {
+    'dist/app': {},
+    'rxjs': {},
+    'core-js': {},
+    'zone.js': {}
+  }
+});
+
+The paths and map sections of the config section define full path to source code files for easch of the ESM modules in our map.
+
+---
+now angular dependencies
+1) @angular/core 
+includes meta data decorators, Component, Directive, dependency injection and component life-cycle hooks.
+2)@angular/compiler 
+it reads your template and convert them to code that makes the application run and render. Typically you dont interact with this directly; rather you use it indirectly via platform-browser-dynamic.
+3)@angular/common
+provides services, pipes and directives such as ngIf and ngFor.
+4)@angular/platform-browser
+contains implementatios for the dynamic bootstrap of the application. Includes providers and bootsrap method for applications that compile templates on the client. So you can skip this module if you use ahead-of-time compilation. Use this package for bootstrapping your application during developent.
+
+$ npm i --save @angular/core @angular/compiler @angular/common @angular/platform-browser @angular/platform-browser-dynamic
+
+---
+now setup typescript compiler
+$ npm install --save-dev typescript
+
+typescript@3.5.3
+
+---
+configure typescript compiler. now create tsconfig.json with following content:
+
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "dom",
+      "es2015"
+    ]
+  }
+}
+
+it tells that compiled javascript files will be kept in 'dist' folder.
+convert ESM module (used in typescript files) into commonjs module format.
+add decorator support like @component, @NgModule etc.
+
+more about tsconfig, find out here: https://blog.angularindepth.com/configuring-typescript-compiler-a84ed8f87e3
+
+------------
+finally add scripts section in package.json
+
+"scripts": {
+    "build": "tsc"
+},
+
+so whenever we write 'npm run build';  npm will tun the typescript compiler.
+
+------------
+now write index.html with following content.
+
+<html>
+  <head>
+    <title>Hello, Angular</title>
+  </head>
+  <body>
+    <app-main>Loading...</app-main>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('dist/main.js').catch(function (err) {
+          console.error(err);
+      });
+    </script>
+  </body>
+</html>
+
+the <app-main> element is the placeholder where our app will be rendered.
+we load system.js  and its configuration file.
+and then instruct System.js to load dist/main.js as the entry point for our application.
+-----------
+now create app.component.ts in src/app folder with following:
+
+import { Component } from '@angular/core';
+@Component({
+  selector: 'app-main',
+  template: '<h1>Hello, {{name}}</h1>'
+})
+export class AppComponent {
+  name = 'Angular';
+}
+
+----------------
+now create angular module that will bootstrap this component. 
+create app.module.ts in src/app folder
+
+import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+@NgModule({
+  imports: [BrowserModule],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+
+-------
+now last piece of the puzzle, write code that instructs angular to bootstrap our module just created. 
+src/main.ts
+
+import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
+import { platformBrowserDynamic } 
+                     from '@angular/platform-browser-dynamic';
+import { AppModule } from './app/app.module';
+platformBrowserDynamic().bootstrapModule(AppModule);
+
+first two lines are polyfills required by angular. reflect and zone.js
+last line bootstraps the appmodule. 
+
+-----
+$ npm run build
+it will compile the typescript to js. check dist filder.
+
+----------
+for serving the application, we wlll use live-server. it has built-in reload feature.
+so first install live-server.
+$ npm install --save-dev live-server
+
+change the scripts section of package.json
+
+"scripts": {
+  "build": "tsc",
+  "start": "live-server"
+},
+
+-----------------
+
+
+$ npm start
+to run the application
+
+
