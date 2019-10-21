@@ -1,0 +1,15 @@
+> install jhipster
+$ npm install -g generator-jhipster
+
+when it is installed globally, its location is following:
+C:\Users\LordOfAll\AppData\Roaming\npm\jhipster -> C:\Users\LordOfAll\AppData\Roaming\npm\node_modules\generator-jhipster\cli\jhipster.js
+
+> create jhipster application
+$ mkdir anabot-yes
+$ cd anabot-yes
+$ jhispter
+
+'jhipster' will create a monolithic application (front-end + back-end).
+
+if you want only back-end application, then
+$ jhipster --skip-client

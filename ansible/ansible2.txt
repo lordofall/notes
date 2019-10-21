@@ -58,7 +58,7 @@ stop server
 $ vagrant halt
 
 delete the machine from virtual box
-$ vargrant destroy
+$ vagrant destroy
 
 running server (in the virtual box) can be connected via ssh
 go to folder where Vagrantfile is located and do following:
