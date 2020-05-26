@@ -21,7 +21,9 @@ it uses API to communicate with communicate with cloud.
 
 
 ----
-installation:
+installation: (for debian/ubuntu use apt, for fedora yum)
+$ sudo apt-add-repository -y ppa:ansible/ansible 
+$ sudo apt-get update
 $ sudo apt install ansible
 or 
 $ sudo yum install ansible

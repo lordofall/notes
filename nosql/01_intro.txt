@@ -1,0 +1,15 @@
+FOSS free and open source softwares
+
+Who needs to know how to manage data-intensive applicatios.
+- how to make scalable data systems, i.e. it should be able to support millions of users.
+- how to make applications highly available i.e minimum downtime.
+- how to make maitainable systems.
+
+Fundamental ideas that apply to all data systems whether running on a single machine or distributed across a cluster of machines.
+
+Reliability
+Scalability 
+Maintainability 
+
+There are data stores which are also used as message queue like REDIS
+There are message queues with database-like durability guarantess - Kafka

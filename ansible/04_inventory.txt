@@ -1,0 +1,47 @@
+inventory file is usually located at /etc/ansible/hosts
+this hosts file can be .ini file or .yaml file. But one must be consistent with the namings.
+
+inventories i.e. host or target servers can be arranged in logical groups like databases or webservers. One host/target server can be part of several 
+groups. 
+two default groups are 'all' and 'ungrouped'.
+
+For each groups we can also mention variables. For example, to connect to all database servers, specific user and password is created for ansible. 
+that cn be mentioned in vars. 
+
+we can also have nested groups , in [windows_servers: children]  $ ansible windows_servers -m win_ping
+
+####
+[webservers]
+web01
+web02
+
+[databases]
+host1
+host2
+
+[windows_servers: children]
+webservers
+databases
+
+[databases: vars]
+ansible_username=asdasdfsadf
+ansible_password=asdasdfsadf
+
+
+---------------
+
+to connect to linux system, either you provide username password everytime or create ssh key.
+$ssh-keygen -t rsa -b 4096 -C "q4465@qk.com"
+it will generate public private rsa key pair. copy the public key to target host.
+
+$ssh-copy-id -i /home/q4465/.ssh/id_rsa.pub q4465@lnhost1
+
+now change the host file where it will contain the private key.
+
+[linuxhost]
+lnhost1
+
+[linuxhost: vars]
+ansible_user="q4465"
+ansible_private_key_file=/home/q4465/.ssh/id_rsa
+ansible_connection=ssh

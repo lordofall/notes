@@ -1,0 +1,63 @@
+Ansible works primarily over SSH protocol which is usually supported by all servers, workstation, operating systems except on Windows. 
+Also ansible requires other utilitis which are available on linux systems only. so in order to make ansible work on windows system, you need linux in a vm and install ansible there.
+---------------
+vagrant, virtualbox, and putty
+vagrant deals with virtual box directly but works with other virtualization program.
+
+putty is to connect to linux systems.
+
+$ vagrant init
+it will create vagrant file. update the config.vm.box as "ubuntu/trusty64"
+$ vagrant up
+it will start the the OS
+$ vagrant shh
+connect to the OS
+$ vagrant suspend
+
+$ vagrant halt
+(power off)
+
+$ vagrant destroy
+(vm destroyed)
+
+https://medium.com/@JohnFoderaro/how-to-set-up-a-local-linux-environment-with-vagrant-163f0ba4da77
+----------------
+now install ansible (on debian/ubuntu )
+$ sudo apt-add-repository -y ppa:ansible/ansible
+$ sudo apt-get update
+$ sudo apt-get install -y ansible
+
+$ ansible --version
+2.9.9
+----------------
+
+add one machine
+$ vagrant box add geerlingguy/centos7 
+
+to create a default server configuration using the box (centos) you just downloaded
+$ vagrant init geerlingguy/centos7
+
+boot your centos server: 
+$ vagrant up
+
+when running 'vagrant up' the first time, vagrant automatically provisions the newly minted VM using whatever provisioner you have configured in the Vagrantfile. You can also run 'Vagrant provision' after the VM has been created to explicitly run the provisioner again. 
+Ansible is one of the provisioners included with vagrant (others include basic shell scripts, Chef, Docker, Pupper and Salt).
+-----------------------
+
+change the Vagrant file of centos.
+
+# Provisioning configuration for Ansible.
+config.vm.provision "ansible" do |ansible|
+ ansible.playbook = "playbook.yml"
+ # Run commands as root.
+ ansible.sudo = true
+end
+
+Also create playbook.yml in the same folder as Vagrantfile
+---
+- hosts: all
+  tasks:
+  - name: Ensure NTP (for time synchronization) is installed.
+    yum: name=ntp state=installed
+  - name: Ensure NTP is running.
+    service: name=ntpd state=started enabled=yes

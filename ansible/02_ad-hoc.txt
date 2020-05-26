@@ -1,0 +1,41 @@
+after creating three servers(centos), now let the ansible know about these servers.
+go to folder (containing Vagrantfile) which has the server with ansible installed.
+$ vagrant ssh
+$ ansible --version
+$ sudo mkdir /etc/ansible
+$ sudo touch /etc/ansible/hosts
+
+copy following in hosts file:
+# ---------------------------
+# Lines beginning with a # are comments, and are only included for
+# illustration. These comments are overkill for most inventory files.
+
+# Application servers
+[app]
+192.168.60.4
+192.168.60.5
+
+# Database server
+[db]
+192.168.60.6
+
+# Group 'multi' with all servers
+[multi:children]
+app
+db
+
+# Variables that will be applied to all servers
+[multi:vars]
+ansible_ssh_user=vagrant
+ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
+# ------------------ 
+
+run following to get host name from all target servers (two app and one db as mentioned above in hosts file)
+$ ansible multi -a "hostname"
+error: Failed to connect to the host via ssh: Host key verification failed
+
+=============================
+=============================
+windows subsystem for linux
+https://www.jeffgeerling.com/blog/2017/using-ansible-through-windows-10s-subsystem-linux
+https://docs.microsoft.com/en-us/windows/wsl/install-win10
